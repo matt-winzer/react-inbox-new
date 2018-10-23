@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import './App.css'
 
+// Components
+import MessageList from './components/MessageList'
+
 class App extends Component {
   state = {
     messages: []
@@ -18,7 +21,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-
+        <MessageList messages={this.state.messages} />
       </div>
     )
   }
