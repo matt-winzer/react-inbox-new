@@ -13,15 +13,30 @@ class App extends Component {
     fetch('/messages.json')
       .then(res => res.json())
       .then(messages => {
-        console.log(messages)
         this.setState({ messages })
       })
+  }
+
+  toggleStarred = (event, messageId) => {
+    event.preventDefault()
+
+    const newMessages = this.state.messages.map(message => {
+      if (message.id === messageId) {
+        message.starred = !message.starred
+      }
+      return message
+    })
+
+    this.setState({
+      messages: newMessages
+    })
   }
 
   render() {
     return (
       <div className="App">
-        <MessageList messages={this.state.messages} />
+        <MessageList  messages={this.state.messages}
+                      toggleStarred={this.toggleStarred} />
       </div>
     )
   }
