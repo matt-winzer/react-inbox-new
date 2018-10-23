@@ -17,12 +17,23 @@ class App extends Component {
       })
   }
 
-  toggleStarred = (event, messageId) => {
-    event.preventDefault()
-
+  toggleStarred = (messageId) => {
     const newMessages = this.state.messages.map(message => {
       if (message.id === messageId) {
         message.starred = !message.starred
+      }
+      return message
+    })
+
+    this.setState({
+      messages: newMessages
+    })
+  }
+
+  toggleSelected = (messageId) => {
+    const newMessages = this.state.messages.map(message => {
+      if (message.id === messageId) {
+        message.selected = !message.selected
       }
       return message
     })
@@ -36,7 +47,8 @@ class App extends Component {
     return (
       <div className="App">
         <MessageList  messages={this.state.messages}
-                      toggleStarred={this.toggleStarred} />
+                      toggleStarred={this.toggleStarred}
+                      toggleSelected={this.toggleSelected} />
       </div>
     )
   }
