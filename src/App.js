@@ -4,6 +4,7 @@ import './App.css'
 // Components
 import MessageList from './components/MessageList'
 import Toolbar from './components/Toolbar'
+import ComposeMessage from './components/ComposeMessage'
 
 class App extends Component {
   state = {
@@ -100,6 +101,7 @@ class App extends Component {
                   markAsRead={this.markAsRead}
                   markAsUnread={this.markAsUnread}
                   />
+        <ComposeMessage />
         <MessageList  messages={this.state.messages}
                       toggleStarred={this.toggleStarred}
                       toggleSelected={this.toggleSelected}
