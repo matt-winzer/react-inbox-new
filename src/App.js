@@ -57,7 +57,6 @@ class App extends Component {
   }
 
   toggleSelected = (messageId) => {
-    console.log(messageId)
     const newMessages = this.state.messages.map(message => {
       if (message.id === messageId) {
         message.selected = !message.selected
@@ -67,10 +66,22 @@ class App extends Component {
     this.setState({ messages: newMessages })
   }
 
+  markAsRead = () => {
+    const newMessages = this.state.messages.map(message => {
+      if (message.selected) {
+        message.read = true
+      }
+      return message
+    })
+    this.setState({ messages: newMessages })
+  }
+
   render() {
     return (
       <div className="App">
-        <Toolbar unreadCount={this.state.unreadCount} />
+        <Toolbar  unreadCount={this.state.unreadCount}
+                  markAsRead={this.markAsRead}
+                  />
         <MessageList  messages={this.state.messages}
                       toggleStarred={this.toggleStarred}
                       toggleSelected={this.toggleSelected}

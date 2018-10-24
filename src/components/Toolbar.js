@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Toolbar = ({ unreadCount }) => {
+const Toolbar = ({ unreadCount, markAsRead }) => {
 
   return (
     <div className="row toolbar">
@@ -11,7 +11,7 @@ const Toolbar = ({ unreadCount }) => {
           <i className="fa fa-check-square-o"></i>
         </button>
 
-        <button className="btn btn-default">Mark As Read</button>
+        <button className="btn btn-default" onClick={markAsRead}>Mark As Read</button>
         <button className="btn btn-default">Mark As Unread</button>
 
         <select className="form-control label-select">
