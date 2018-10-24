@@ -36,8 +36,6 @@ class App extends Component {
     return unreadCount
   }
 
-
-
   toggleStarred = (messageId) => {
     // FETCH PATCH
     fetch('http://localhost:8082/api/messages', {
@@ -56,18 +54,27 @@ class App extends Component {
           messages: newMessages
         })
       })
-
-
   }
 
-  
+  toggleSelected = (messageId) => {
+    console.log(messageId)
+    const newMessages = this.state.messages.map(message => {
+      if (message.id === messageId) {
+        message.selected = !message.selected
+      }
+      return message
+    })
+    this.setState({ messages: newMessages })
+  }
 
   render() {
     return (
       <div className="App">
         <Toolbar unreadCount={this.state.unreadCount} />
         <MessageList  messages={this.state.messages}
-                      toggleStarred={this.toggleStarred} />
+                      toggleStarred={this.toggleStarred}
+                      toggleSelected={this.toggleSelected}
+                      />
       </div>
     )
   }
