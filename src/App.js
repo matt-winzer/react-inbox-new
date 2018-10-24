@@ -65,6 +65,13 @@ class App extends Component {
     this.markAsReadOrUnread(false)
   }
 
+  addMessage = (message) => {
+    const newMessages = this.state.messages.concat(message)
+    this.setState({
+      messages: newMessages
+    })
+  }
+
   markAsReadOrUnread = (readBoolean) => {
     const selectedMessageIds = this.getSelectedMessages()
     fetch('http://localhost:8082/api/messages', {
@@ -101,7 +108,7 @@ class App extends Component {
                   markAsRead={this.markAsRead}
                   markAsUnread={this.markAsUnread}
                   />
-        <ComposeMessage />
+        <ComposeMessage addMessage={this.addMessage} />
         <MessageList  messages={this.state.messages}
                       toggleStarred={this.toggleStarred}
                       toggleSelected={this.toggleSelected}

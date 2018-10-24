@@ -9,12 +9,27 @@ class ComposeMessage extends Component {
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value
-    }, () => console.log(this.state))
+    })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+    fetch('http://localhost:8082/api/messages', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(this.state)
+    })
+      .then(response => response.json())
+      .then(newMessage => {
+        this.props.addMessage(newMessage)
+      })
   }
 
   render() {
     return (
-      <form className="form-horizontal well">
+      <form className="form-horizontal well" onSubmit={this.handleSubmit}>
         <div className="form-group">
           <div className="col-sm-8 col-sm-offset-2">
             <h4>Compose Message</h4>
