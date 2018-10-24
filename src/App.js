@@ -14,10 +14,8 @@ class App extends Component {
   async componentDidMount() {
     const response = await fetch('http://localhost:8082/api/messages')
     const messages = await response.json()
-    const unreadCount = this.calculateUnreadCount(messages)
     this.setState({
-      messages,
-      unreadCount
+      messages
     })
 
     // fetch('http://localhost:8082/api/messages')
@@ -26,14 +24,6 @@ class App extends Component {
     //     console.log(messages)
     //     this.setState({ messages: messages })
     //   })
-  }
-
-  calculateUnreadCount = (messages) => {
-    const unreadCount = messages.filter(message => {
-      return !message.read
-    }).length
-
-    return unreadCount
   }
 
   toggleStarred = (messageId) => {
@@ -67,6 +57,14 @@ class App extends Component {
   }
 
   markAsRead = () => {
+    this.markAsReadOrUnread(true)
+  }
+
+  markAsUnread = () => {
+    this.markAsReadOrUnread(false)
+  }
+
+  markAsReadOrUnread = (readBoolean) => {
     const selectedMessageIds = this.getSelectedMessages()
     fetch('http://localhost:8082/api/messages', {
       method: 'PATCH',
@@ -76,7 +74,7 @@ class App extends Component {
       body: JSON.stringify({
         messageIds: selectedMessageIds,
         command: 'read',
-        read: true
+        read: readBoolean
       })
     })
       .then(response => response.json())
@@ -97,8 +95,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Toolbar  unreadCount={this.state.unreadCount}
+        <Toolbar  messages={this.state.messages}
+                  unreadCount={this.state.unreadCount}
                   markAsRead={this.markAsRead}
+                  markAsUnread={this.markAsUnread}
                   />
         <MessageList  messages={this.state.messages}
                       toggleStarred={this.toggleStarred}

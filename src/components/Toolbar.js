@@ -1,7 +1,10 @@
 import React from 'react'
 
-const Toolbar = ({ unreadCount, markAsRead }) => {
-
+const Toolbar = ({ messages, markAsRead, markAsUnread }) => {
+  const unreadCount = messages.filter(message => {
+    return !message.read
+  }).length
+  
   return (
     <div className="row toolbar">
       <div className="col-md-12">
@@ -12,7 +15,7 @@ const Toolbar = ({ unreadCount, markAsRead }) => {
         </button>
 
         <button className="btn btn-default" onClick={markAsRead}>Mark As Read</button>
-        <button className="btn btn-default">Mark As Unread</button>
+        <button className="btn btn-default" onClick={markAsUnread}>Mark As Unread</button>
 
         <select className="form-control label-select">
           <option>Apply label</option>
