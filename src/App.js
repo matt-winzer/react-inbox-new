@@ -7,17 +7,14 @@ import Toolbar from './components/Toolbar'
 
 class App extends Component {
   state = {
-    messages: [],
-    unreadCount: ''
+    messages: []
   }
 
   async componentDidMount() {
     const response = await fetch('http://localhost:8082/api/messages')
     const messages = await response.json()
-    const unreadCount = this.calculateUnreadCount(messages)
     this.setState({
-      messages,
-      unreadCount
+      messages
     })
 
     // fetch('http://localhost:8082/api/messages')
@@ -27,16 +24,6 @@ class App extends Component {
     //     this.setState({ messages: messages })
     //   })
   }
-
-  calculateUnreadCount = (messages) => {
-    const unreadCount = messages.filter(message => {
-      return !message.read
-    }).length
-
-    return unreadCount
-  }
-
-
 
   toggleStarred = (messageId) => {
     // FETCH PATCH
@@ -56,11 +43,7 @@ class App extends Component {
           messages: newMessages
         })
       })
-
-
   }
-
-  
 
   render() {
     return (
