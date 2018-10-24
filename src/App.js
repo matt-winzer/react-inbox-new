@@ -119,7 +119,9 @@ class App extends Component {
                   markAsUnread={this.markAsUnread}
                   toggleComposeForm={this.toggleComposeForm}
                   />
-        {showComposeForm && <ComposeMessage addMessage={this.addMessage} />}
+        {showComposeForm && <ComposeMessage addMessage={this.addMessage}
+                                            toggleComposeForm={this.toggleComposeForm}
+                                            />}
         <MessageList  messages={this.state.messages}
                       toggleStarred={this.toggleStarred}
                       toggleSelected={this.toggleSelected}

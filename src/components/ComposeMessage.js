@@ -24,6 +24,7 @@ class ComposeMessage extends Component {
       .then(response => response.json())
       .then(newMessage => {
         this.props.addMessage(newMessage)
+        this.props.toggleComposeForm()
       })
   }
 
