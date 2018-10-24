@@ -67,13 +67,31 @@ class App extends Component {
   }
 
   markAsRead = () => {
-    const newMessages = this.state.messages.map(message => {
-      if (message.selected) {
-        message.read = true
-      }
-      return message
+    const selectedMessageIds = this.getSelectedMessages()
+    fetch('http://localhost:8082/api/messages', {
+      method: 'PATCH',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        messageIds: selectedMessageIds,
+        command: 'read',
+        read: true
+      })
     })
-    this.setState({ messages: newMessages })
+      .then(response => response.json())
+      .then(newMessages => {
+        this.setState({ messages: newMessages })
+      })
+  }
+
+  getSelectedMessages = () => {
+    return this.state.messages.reduce((ids, message) => {
+      if (message.selected) {
+        ids.push(message.id)
+      }
+      return ids
+    }, [])
   }
 
   render() {
