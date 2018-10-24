@@ -1,14 +1,18 @@
 import React from 'react'
 
-const Toolbar = ({ messages, markAsRead, markAsUnread }) => {
+const Toolbar = ({ messages, markAsRead, markAsUnread, toggleComposeForm }) => {
   const unreadCount = messages.filter(message => {
     return !message.read
   }).length
-  
+
   return (
     <div className="row toolbar">
       <div className="col-md-12">
         <p className="pull-right"><span className="badge badge">{unreadCount}</span>unread messages</p>
+
+        <a className="btn btn-danger" onClick={toggleComposeForm}>
+          <i className="fa fa-plus"></i>
+        </a>
 
         <button className="btn btn-default">
           <i className="fa fa-check-square-o"></i>

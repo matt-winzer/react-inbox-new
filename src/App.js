@@ -9,7 +9,8 @@ import ComposeMessage from './components/ComposeMessage'
 class App extends Component {
   state = {
     messages: [],
-    unreadCount: ''
+    unreadCount: '',
+    showComposeForm: false
   }
 
   async componentDidMount() {
@@ -72,6 +73,13 @@ class App extends Component {
     })
   }
 
+  toggleComposeForm = () => {
+    const showComposeForm = !this.state.showComposeForm
+    this.setState({
+      showComposeForm
+    })
+  }
+
   markAsReadOrUnread = (readBoolean) => {
     const selectedMessageIds = this.getSelectedMessages()
     fetch('http://localhost:8082/api/messages', {
@@ -101,14 +109,17 @@ class App extends Component {
   }
 
   render() {
+    const showComposeForm = this.state.showComposeForm
+
     return (
       <div className="App">
         <Toolbar  messages={this.state.messages}
                   unreadCount={this.state.unreadCount}
                   markAsRead={this.markAsRead}
                   markAsUnread={this.markAsUnread}
+                  toggleComposeForm={this.toggleComposeForm}
                   />
-        <ComposeMessage addMessage={this.addMessage} />
+        {showComposeForm && <ComposeMessage addMessage={this.addMessage} />}
         <MessageList  messages={this.state.messages}
                       toggleStarred={this.toggleStarred}
                       toggleSelected={this.toggleSelected}
