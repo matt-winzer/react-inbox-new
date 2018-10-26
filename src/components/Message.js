@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Message = ({ id, labels, read, selected, starred, subject, toggleStarred }) => {
+const Message = ({ id, labels, read, selected, starred, subject, toggleStarred, toggleChecked }) => {
   const readClasses = read ? "row message read" : "row message unread"
   const selectedClass = selected ? " selected" : ""
   const starredClasses = starred ? "star fa fa-star" : "star fa fa-star-o"
@@ -14,7 +14,7 @@ const Message = ({ id, labels, read, selected, starred, subject, toggleStarred }
       <div className="col-xs-1">
         <div className="row">
           <div className="col-xs-2">
-            <input type="checkbox" defaultChecked={selected} />
+            <input type="checkbox" defaultChecked={selected} onClick={() => toggleChecked(id)}/>
           </div>
           <div className="col-xs-2">
             <i className={starredClasses} onClick={() => toggleStarred(id)}></i>

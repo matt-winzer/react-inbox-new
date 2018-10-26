@@ -21,6 +21,3 @@
   - Use an event handler to capture the click event on checkbox
   - Pass the messageId of the message that was selected to handler
   - Update state on front-end
-
-## Notes
-

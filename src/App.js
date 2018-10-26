@@ -45,12 +45,28 @@ class App extends Component {
       })
   }
 
+  toggleChecked = (messageId) => {
+    const newMessages = this.state.messages.map(message => {
+      // Find the relevant message by it's id
+      if (message.id === messageId) {
+        // Modify it's 'selected' property to be true
+        message.selected = !message.selected
+      }
+      return message
+    })
+    this.setState({
+      messages: newMessages
+    })
+  }
+
   render() {
     return (
       <div className="App">
         <Toolbar unreadCount={this.state.unreadCount} />
         <MessageList  messages={this.state.messages}
-                      toggleStarred={this.toggleStarred} />
+                      toggleStarred={this.toggleStarred}
+                      toggleChecked={this.toggleChecked}
+                      />
       </div>
     )
   }
